@@ -1,4 +1,0 @@
-defaults:
-  - a2a: default
-  - orchestrator: default
-  - override hydra/job_logging: custom
