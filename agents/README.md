@@ -17,7 +17,7 @@
 
 ## 增加智能体的步骤
 
-1. 在 core/agents 目录下创建一个目录，目录名就是智能体的名字
+1. 在 agents 目录下创建一个目录，目录名就是智能体的名字
 2. 在目录下创建 agent.py 文件，实现 async def build_agent() -> Agent
 3. 在目录下创建 prompt.py 文件，实现提示词
-4. 修改 `core/agents/__init__.py` 中 build_sub_agents 函数，添加对应的 agent
+4. 修改 `agents/__init__.py` 中 build_sub_agents 函数，添加对应的 agent

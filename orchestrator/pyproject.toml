@@ -5,7 +5,7 @@ description = "协调员智能体"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "robot-core",
+    "aigc",
     "google-genai>=1.9.0",
     "python-dotenv>=1.1.0",
     "loguru>=0.7.3",
@@ -25,7 +25,7 @@ dependencies = [
 packages = ["."]
 
 [tool.uv.sources]
-robot-core = { workspace = true }
+aigc = { workspace = true }
 
 [build-system]
 requires = ["hatchling"]

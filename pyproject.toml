@@ -1,7 +1,7 @@
 [project]
-name = "robot-core"
+name = "aigc"
 version = "0.1.0"
-description = "Robot core"
+description = "Aigc application"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
