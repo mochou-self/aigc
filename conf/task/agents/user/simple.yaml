@@ -1,0 +1,15 @@
+_target_: runners.agent_runner.AgentRunner
+args:
+  agent:
+    _target_: agents.user_agent.agent.build_agent
+    cfg:
+      llm:
+        model: openai/claude-3
+        api_key: ipanel
+        base_url: http://192.168.101.8:8100
+      callbacks:
+        _target_: common.callbacks.build_callbacks
+  turns:
+    # - user: "介绍你的角色设定"
+    - user: "张三丰的电话号码是多少"
+    # - user: "发一条信息给张三丰，内容是“你妈叫你回家吃饭”"

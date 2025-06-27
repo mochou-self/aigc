@@ -1,0 +1,22 @@
+_target_: runners.agent_runner.AgentRunner
+args:
+  agent_common: &agent_common
+    llm:
+      model: openai/claude-3
+      api_key: ipanel
+      base_url: http://192.168.101.8:8100
+    callbacks:
+      _target_: common.callbacks.build_callbacks
+  agent:
+    _target_: agents.orchestrator.agent.build_agent
+    cfg:
+      <<: *agent_common
+      agents:
+        user:
+          <<: *agent_common
+        task:
+          <<: *agent_common
+  turns:
+    - user: "介绍你的角色设定"
+    - user: "将任务1的信息发给所有姓张的人"
+    - user: "再发给姓李的人"

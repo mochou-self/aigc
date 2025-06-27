@@ -1,0 +1,35 @@
+version: 1
+formatters:
+  simple:
+    format: '%(asctime)s.%(msecs)03d %(filename)s:%(lineno)d [%(funcName)s] %(message)s'
+    datefmt: '%m-%d %H:%M:%S'
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: simple
+    stream: ext://sys.stdout
+  file:
+    class: logging.FileHandler
+    formatter: simple
+    # absolute file path
+    filename: ${hydra.runtime.output_dir}/${hydra.job.name}.log
+
+root:
+  handlers: [console, file]
+
+loggers:
+  google:
+    level: WARN
+  httpx:
+    level: WARN
+  LiteLLM:
+    level: WARN
+  uvicorn:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+  uvicorn.access:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+disable_existing_loggers: false

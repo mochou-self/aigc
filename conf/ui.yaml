@@ -1,0 +1,3 @@
+defaults:
+  - a2a: default
+  - override hydra/job_logging: custom

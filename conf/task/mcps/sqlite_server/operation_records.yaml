@@ -1,0 +1,95 @@
+_target_: runners.mcp_runner.MCPClientRunner
+args:
+  server_params:
+    _target_: mcp.StdioServerParameters
+    command: python3
+    args:
+      - ../mcps/sqlite_server/main.py
+      - --db-path 
+      - ../.db/context.sqlite3
+      - --cfg-name 
+      - tools_config.json
+
+  tool_calls:  
+    # 1. 列出表（初始状态）
+    - name: list_tables
+      args: {}
+
+    # 2. 创建操作记录表
+    - name: create_table
+      args:
+        table_name: operation_records
+        table_comment: 水电员工开机操作记录表
+        columns: |
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id TEXT NOT NULL,
+            station_id TEXT NOT NULL,
+            user_command TEXT NOT NULL,
+            command_result TEXT NOT NULL,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+
+    # 3. 描述表结构
+    - name: describe_table
+      args:
+        table_name: operation_records
+
+    # 4. 插入开机操作记录
+    - name: write_query
+      args:
+        query: |
+          INSERT INTO operation_records 
+          (user_id, station_id, user_command, command_result)
+          VALUES ('U001', 'P001', '启动电站P001', '开机成功，系统运行正常')
+
+    - name: write_query
+      args:
+        query: |
+          INSERT INTO operation_records 
+          (user_id, station_id, user_command, command_result)
+          VALUES ('U002', 'P002', '启动电站P002', '开机成功，系统运行正常')
+
+    - name: write_query
+      args:
+        query: |
+          INSERT INTO operation_records 
+          (user_id, station_id, user_command, command_result)
+          VALUES ('U003', 'P003', '启动电站P003', '开机成功，系统运行正常')
+
+    # 5. 查询操作记录
+    - name: read_query
+      args:
+        query: "SELECT * FROM operation_records"
+
+    # 6. 查询特定用户的操作记录
+    - name: read_query
+      args:
+        query: "SELECT * FROM operation_records WHERE user_id = 'U001'"
+
+    # 7. 查询特定电站的操作记录
+    - name: read_query
+      args:
+        query: "SELECT * FROM operation_records WHERE station_id = 'P002'"
+
+    # 8. 尝试修改历史记录（应该失败）
+    - name: write_query
+      args:
+        query: "UPDATE operation_records SET command_result = '修改后的结果' WHERE id = 1"
+
+    # 9. 尝试删除历史记录（应该失败）
+    - name: write_query
+      args:
+        query: "DELETE FROM operation_records WHERE id = 1"
+
+    # 10. 验证数据完整性
+    - name: read_query
+      args:
+        query: "SELECT * FROM operation_records"
+
+    # 11. 删除表（危险操作，仅用于演示）
+    #- name: drop_table
+    #  args:
+    #    table_name: operation_records
+
+    # 12. 验证表已删除
+    #- name: list_tables
+    #  args: {}

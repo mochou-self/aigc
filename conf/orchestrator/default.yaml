@@ -1,0 +1,22 @@
+user_id: ipanel
+app_name: hydropower
+agent:
+  agent_common: &agent_common
+    llm:
+      model: openai/claude-3
+      api_key: ipanel
+      base_url: http://192.168.101.8:8100
+    callbacks:
+      _target_: orchestrator_executor.build_callbacks
+  <<: *agent_common
+  agents:
+    user:
+      <<: *agent_common
+    task:
+      <<: *agent_common
+    monitor_control:
+      <<: *agent_common
+      mcp_host: 192.168.64.199
+      mcp_port: 8996
+    feedback_submit:
+      <<: *agent_common

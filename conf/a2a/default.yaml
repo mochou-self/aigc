@@ -1,0 +1,10 @@
+ui:
+  host:
+    listen_on: 0.0.0.0 # 用于监听
+    connect_to: localhost # 用于连接
+  port: 12000
+orchestrator:
+  host:
+    listen_on: 0.0.0.0
+    connect_to: localhost
+  port: 10005

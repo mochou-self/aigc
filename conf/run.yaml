@@ -1,0 +1,3 @@
+defaults:
+  - task: orchestrator/simple
+  - override hydra/job_logging: custom
